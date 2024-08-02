@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.SQLException;
 
 @Controller
@@ -18,7 +16,6 @@ public class MockController {
 
     @RequestMapping("/configure")
     public Boolean configure(@RequestBody SaveParam saveParam) throws SQLException {
-        boolean b = javaMockService.saveConfig(saveParam);
-        return b;
+        return javaMockService.saveConfig(saveParam);
     }
 }
