@@ -4,8 +4,11 @@ import jakarta.annotation.Resource;
 import org.ma5d.javamock.dto.SaveParam;
 import org.ma5d.javamock.service.JavaMockServiceImpl;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.sql.SQLException;
 
@@ -14,8 +17,14 @@ public class MockController {
     @Resource
     JavaMockServiceImpl javaMockService;
 
-    @RequestMapping("/configure")
-    public Boolean configure(@RequestBody SaveParam saveParam) throws SQLException {
+    @PostMapping("/save")
+    public Boolean configure(@ModelAttribute("saveParam") SaveParam saveParam) throws SQLException {
         return javaMockService.saveConfig(saveParam);
+    }
+
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("message", "Hello, Thymeleaf!");
+        return "index"; // 返回模板文件名（不包含.html后缀）
     }
 }
