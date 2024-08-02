@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @Controller
 public class MockController {
@@ -16,7 +17,7 @@ public class MockController {
     JavaMockServiceImpl javaMockService;
 
     @RequestMapping("/configure")
-    public Boolean configure(@RequestBody SaveParam saveParam) throws IOException {
+    public Boolean configure(@RequestBody SaveParam saveParam) throws SQLException {
         boolean b = javaMockService.saveConfig(saveParam);
         return b;
     }

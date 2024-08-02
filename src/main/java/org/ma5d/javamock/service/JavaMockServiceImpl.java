@@ -6,6 +6,8 @@ import org.ma5d.javamock.dao.JavaMockDao;
 import org.ma5d.javamock.dto.SaveParam;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
+
 @Service
 public class JavaMockServiceImpl {
 
@@ -14,7 +16,7 @@ public class JavaMockServiceImpl {
     @Resource
     JavaMockDao javaMockDao;
 
-    public boolean saveConfig(SaveParam saveParam) {
+    public boolean saveConfig(SaveParam saveParam) throws SQLException {
         return javaMockDao.saveConfig(dataSource, saveParam);
     }
 }

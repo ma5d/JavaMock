@@ -7,10 +7,11 @@ import java.io.Serializable;
 @Data
 public class SaveParam implements Serializable {
     private String timeStamp;
-    private String path;
-    private String responseBody;
+    private String aDomain;
+    private String pathWithParam;
+    private String response;
 
-    public String toCSV(){
-        return timeStamp + "," + path + "," + responseBody;
+    public String[] toStringArray(){
+        return new String[]{timeStamp, aDomain, pathWithParam, response};
     }
 }
