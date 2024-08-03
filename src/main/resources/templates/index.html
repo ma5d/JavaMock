@@ -21,6 +21,7 @@
         <th>域名</th>
         <th>路径及参数</th>
         <th>返回数据</th>
+        <th>删除</th>
     </tr>
     </thead>
     <tbody>
@@ -40,6 +41,12 @@
         </td>
 
         <td th:text="${#strings.length(saveParam.response) > 100 ? saveParam.response.substring(0, 100) + '...' : saveParam.response}"></td>
+
+        <td>
+            <a th:href="@{http://{domainCom}/delete/{timeStamp}(domainCom=${saveParam.domainCom}, timeStamp=${saveParam.timeStamp})}"
+               th:text="${saveParam.timeStamp}">
+            </a>
+        </td>
 
     </tr>
     </tbody>

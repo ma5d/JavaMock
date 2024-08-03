@@ -4,7 +4,6 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.ma5d.javamock.dto.SaveParam;
 import org.ma5d.javamock.service.JavaMockServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +14,9 @@ import java.util.List;
 @Controller
 public class MockController {
     @Resource
-    JavaMockServiceImpl javaMockService;
-    @Autowired
-    private JavaMockServiceImpl javaMockServiceImpl;
+    private JavaMockServiceImpl javaMockService;
 
+    // region 查
     @GetMapping("/")
     public String index() {
         return "redirect:/index";
@@ -30,26 +28,47 @@ public class MockController {
         model.addAttribute("saveParams", saveParams);
         return "index";
     }
+    // endregion
+
+    // region 增
+    @GetMapping("/new")
+    public String newItem(Model model) {
+        SaveParam saveParam = new SaveParam();
+        model.addAttribute("saveParam", saveParam);
+        return "detail";
+    }
 
     @PostMapping("/save")
     public String configure(@ModelAttribute("saveParam") SaveParam saveParam) throws SQLException {
         javaMockService.saveConfig(saveParam);
         return "redirect:/";
     }
+    // endregion
 
+    // region 删
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable String id) throws SQLException {
+        javaMockService.deleteByTimeStamp(id);
+        return "redirect:/";
+    }
+    // endregion
+
+    // region 改
     @GetMapping("/detail/{timeStamp}")
     public String detail(@PathVariable String timeStamp, Model model) throws SQLException {
         SaveParam saveParam = javaMockService.queryLine(timeStamp);
         model.addAttribute("saveParam", saveParam);
         return "detail";
     }
+    // endregion
 
+    // region 主要逻辑
     @ResponseBody
     @GetMapping("/p/**")
     public String proxyGet(HttpServletRequest request) throws SQLException {
         String requestURI = request.getRequestURI();
         String pathWithParam = "/" + requestURI.split("/p/")[1];
-        SaveParam saveParam = javaMockServiceImpl.getSaveParamByPathWithParam(pathWithParam);
+        SaveParam saveParam = javaMockService.getSaveParamByPathWithParam(pathWithParam);
         return saveParam.getResponse();
     }
 
@@ -58,8 +77,8 @@ public class MockController {
     public String proxyPost(HttpServletRequest request) throws SQLException {
         String requestURI = request.getRequestURI();
         String pathWithParam = "/" + requestURI.split("/p/")[1];
-        SaveParam saveParam = javaMockServiceImpl.getSaveParamByPathWithParam(pathWithParam);
+        SaveParam saveParam = javaMockService.getSaveParamByPathWithParam(pathWithParam);
         return saveParam.getResponse();
     }
-
+    // endregion
 }
