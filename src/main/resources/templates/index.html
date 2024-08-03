@@ -1,36 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="utf-8">
 <head>
     <title>Form Demo</title>
 </head>
 <body>
-<form action="#" th:action="@{/save}" th:object="${saveParam}" method="post">
-    <div>
-        <label for="name">aDomain:</label>
-        <input type="text" id="name" name="name" th:field="*{name}" required>
+    <div th:each="saveParam : ${saveParams}">
+        <div th:text="${saveParam.timeStamp}"></div>
+        <!--        <form action="#" th:action="@{/save}" method="post">-->
+<!--            <label for="timeStamp">时间戳:</label>-->
+<!--            <input type="text" id="timeStamp" th:field="${saveParam.timeStamp}" required>-->
+<!--            <label for="aDomain">域名:</label>-->
+<!--            <input type="text" id="aDomain" th:field="${saveParam.domainCom}" required>-->
+<!--            <label for="pathWithParam">路径及参数:</label>-->
+<!--            <input type="text" id="pathWithParam" th:field="${saveParam.pathWithParam}" required>-->
+<!--            <label for="response">返回数据:</label>-->
+<!--            <input type="text" id="response" th:field="${saveParam.response}" required>-->
+<!--            <button type="submit">Submit</button>-->
+<!--        </form>-->
     </div>
-
-    <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" th:field="*{email}" required>
-    </div>
-
-    <div>
-        <label>Gender:</label>
-        <input type="radio" id="male" name="gender" value="male" th:field="*{gender}">
-        <label for="male">Male</label>
-        <input type="radio" id="female" name="gender" value="female" th:field="*{gender}">
-        <label for="female">Female</label>
-    </div>
-
-    <div>
-        <label for="country">Country:</label>
-        <select id="country" name="country" th:field="*{country}">
-            <option th:each="country : ${countries}" th:value="${country.code}" th:text="${country.name}">Country Name</option>
-        </select>
-    </div>
-
-    <button type="submit">Submit</button>
-</form>
 </body>
 </html>

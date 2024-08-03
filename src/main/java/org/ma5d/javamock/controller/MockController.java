@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @Controller
 public class MockController {
@@ -23,8 +24,9 @@ public class MockController {
     }
 
     @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("message", "Hello, Thymeleaf!");
+    public String index(Model model) throws SQLException {
+        List<SaveParam> saveParams = javaMockService.queryAllLines();
+        model.addAttribute("saveParams", saveParams);
         return "index"; // 返回模板文件名（不包含.html后缀）
     }
 }

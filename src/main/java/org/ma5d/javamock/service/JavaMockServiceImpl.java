@@ -6,7 +6,10 @@ import org.ma5d.javamock.dto.SaveParam;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class JavaMockServiceImpl {
@@ -17,9 +20,25 @@ public class JavaMockServiceImpl {
     public boolean saveConfig(SaveParam saveParam) throws SQLException {
         Connection connection = dataSource.getConnection();
         //language=SQLite
-        String query = "insert into java_mock(adomain, path_param, response) values(?, ?, ?)";
-        boolean execute = connection.prepareStatement(query, saveParam.toStringArray()).execute();
-        dataSource.close();
-        return execute;
+        String query = "insert into java_mock(time_stamp, adomain, path_param, response) values(?, ?, ?)";
+        return connection.prepareStatement(query, saveParam.toStringArray()).execute();
+    }
+
+    public List<SaveParam> queryAllLines() throws SQLException {
+        Connection connection = dataSource.getConnection();
+        //language=SQLite
+        String query = "select time_stamp, adomain, path_param, response from java_mock";
+        ResultSet resultSet = connection.prepareStatement(query).executeQuery();
+        List<SaveParam> saveParams = new ArrayList<>();
+        while (resultSet.next()) {
+            SaveParam saveParam = new SaveParam();
+            saveParam.setTimeStamp(resultSet.getString("time_stamp"));
+            saveParam.setDomainCom(resultSet.getString("adomain"));
+            saveParam.setPathWithParam(resultSet.getString("path_param"));
+            saveParam.setResponse(resultSet.getString("response"));
+            saveParams.add(saveParam);
+        }
+        connection.close();
+        return saveParams;
     }
 }
