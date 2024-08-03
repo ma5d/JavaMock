@@ -1,22 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="utf-8">
+<html xmlns:th="http://www.thymeleaf.org" lang="zh">
 <head>
     <title>Form Demo</title>
 </head>
 <body>
-    <div th:each="saveParam : ${saveParams}">
-        <div th:text="${saveParam.timeStamp}"></div>
-        <!--        <form action="#" th:action="@{/save}" method="post">-->
-<!--            <label for="timeStamp">时间戳:</label>-->
-<!--            <input type="text" id="timeStamp" th:field="${saveParam.timeStamp}" required>-->
-<!--            <label for="aDomain">域名:</label>-->
-<!--            <input type="text" id="aDomain" th:field="${saveParam.domainCom}" required>-->
-<!--            <label for="pathWithParam">路径及参数:</label>-->
-<!--            <input type="text" id="pathWithParam" th:field="${saveParam.pathWithParam}" required>-->
-<!--            <label for="response">返回数据:</label>-->
-<!--            <input type="text" id="response" th:field="${saveParam.response}" required>-->
-<!--            <button type="submit">Submit</button>-->
-<!--        </form>-->
-    </div>
+<table>
+    <thead>
+    <tr>
+        <th>时间戳</th>
+        <th>域名</th>
+        <th>路径及参数</th>
+        <th>返回数据</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="saveParam : ${saveParams}">
+        <td th:text="${saveParam.timeStamp}"></td>
+        <td th:text="${saveParam.domainCom}"></td>
+        <td th:text="${saveParam.pathWithParam}"></td>
+        <td th:text="${saveParam.response}"></td>
+        <td>
+            <a th:href="@{http://{domainCom}/detail/{timestamp}(domainCom=${saveParam.domainCom}, timestamp=${saveParam.timeStamp})}"
+               th:text="'访问 ' + ${saveParam.timeStamp}"></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>

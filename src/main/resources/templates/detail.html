@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'JavaMock-' + ${saveParam.timeStamp}"></title>
+</head>
+<body>
+<form th:action="@{/save}" th:object="${saveParam}" method="post">
+    <label for="timeStamp">Timestamp:</label>
+    <input type="text" id="timeStamp" th:field="*{timeStamp}" />
+    <br>
+
+    <label for="domainCom">Domain:</label>
+    <input type="text" id="domainCom" th:field="*{domainCom}" />
+    <br>
+
+    <label for="pathWithParam">Path:</label>
+    <input type="text" id="pathWithParam" th:field="*{pathWithParam}" />
+    <br>
+
+    <label for="response">Response:</label>
+    <textarea id="response" th:field="*{response}"></textarea>
+    <br>
+
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>
