@@ -72,6 +72,8 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<mainClass>org.ma5d.javamock.JavaMockApplication</mainClass>
+					<skip>false</skip>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
@@ -79,6 +81,14 @@
 						</exclude>
 					</excludes>
 				</configuration>
+				<executions>
+					<execution>
+						<id>repackage</id>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
