@@ -2,6 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="zh">
 <head>
     <title>Form Demo</title>
+    <style>
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        td, th {
+            border: 1px solid black;
+            padding: 8px; /* 可选：为单元格增加内边距 */
+        }
+    </style>
 </head>
 <body>
 <table>
@@ -11,22 +21,34 @@
         <th>域名</th>
         <th>路径及参数</th>
         <th>返回数据</th>
-        <th>操作</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="saveParam : ${saveParams}">
-        <td th:text="${saveParam.timeStamp}"></td>
-        <td th:text="${saveParam.domainCom}"></td>
-        <td th:text="${saveParam.pathWithParam}"></td>
-        <td th:text="${saveParam.response}"></td>
+
         <td>
             <a th:href="@{http://{domainCom}/detail/{timestamp}(domainCom=${saveParam.domainCom}, timestamp=${saveParam.timeStamp})}"
-               th:text="'访问 ' + ${saveParam.timeStamp}"></a>
+                    th:text="${saveParam.timeStamp}"></a>
         </td>
+
+        <td th:text="${saveParam.domainCom}"></td>
+
+        <td>
+            <a th:href="@{http://{domainCom}/p{pathWithParam}(domainCom=${saveParam.domainCom}, pathWithParam=${saveParam.pathWithParam})}"
+               th:text="${saveParam.pathWithParam}">
+            </a>
+        </td>
+
+        <td th:text="${#strings.length(saveParam.response) > 100 ? saveParam.response.substring(0, 100) + '...' : saveParam.response}"></td>
+
     </tr>
     </tbody>
 </table>
+<a href="/new" style="text-decoration: none;">
+    <div style="display: inline-block; padding: 8px 16px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
+        新增
+    </div>
+</a>
 
 </body>
 </html>
