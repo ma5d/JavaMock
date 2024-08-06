@@ -28,7 +28,7 @@ public class JavaMockConfig {
         //language=SQLite
         String sql = "create table if not exists " +
                 "java_mock(" +
-                    "time_stamp varchar(50) /*时间戳*/, " +
+                    "time_stamp varchar(50) primary key /*时间戳*/, " +
                     "adomain varchar(20) /*域名*/, " +
                     "path_param varchar(200) /*路径与参数*/, " +
                     "response varchar(2000) /*返回值*/" +
